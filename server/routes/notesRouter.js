@@ -35,8 +35,17 @@ try{
 
 })
 
-notesRouter.get("/favourites", (req, res) => {
-  res.render('favourites');
+notesRouter.get("/favourites", async(req, res) => {
+  const userId = req.headers.user;
+
+try {
+const userFav = await User.findById(userId).populate({path:"fav"})
+
+return res.json(userFav.fav.map(element => element))
+}catch (error){
+return res.json("favourites not found")
+}
+
 })
 
 notesRouter.post("/favourites", (req, res) => {
