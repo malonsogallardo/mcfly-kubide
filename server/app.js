@@ -55,4 +55,13 @@ const index = require('./routes/index');
 app.use('/', index);
 
 
+const create = require('./routes/notesRouter');
+app.use('/', create);
+
+const favourites = require('./routes/notesRouter');
+app.use('/', favourites);
+
+const notes = require('./routes/notesRouter');
+app.use('/', notes);
+
 module.exports = app;
