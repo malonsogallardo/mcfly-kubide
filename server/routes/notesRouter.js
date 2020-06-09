@@ -24,7 +24,7 @@ notesRouter.post("/favourites/:id", (req, res) => {
 
 })
 
-notesRouter.post("/favourites/delete/:id", (req, res) => {
+notesRouter.put("/favourites/delete/:id", (req, res) => {
 
 })
 
@@ -32,11 +32,8 @@ notesRouter.get("/notes", (req, res) => {
   res.render('notes');
 })
 
-notesRouter.post("/notes", (req, res) => {
 
-})
-
-notesRouter.post("/notes/:id", (req, res) => {
+notesRouter.get("/notes/:id", (req, res) => {
 
 })
 

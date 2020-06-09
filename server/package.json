@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "DEBUG=server:* nodemon ./bin/www",
-    "dev-windows": "nodemon ./bin/www"
+    "dev-windows": "nodemon ./bin/www",
+    "seeds": "node bin/note.js && node bin/user.js"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
