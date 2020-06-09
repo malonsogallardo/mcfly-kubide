@@ -8,6 +8,17 @@ const userSchema = new Schema(
     text: [{ type : Schema.ObjectId, ref : "Note"}],
     fav: [{ type : Schema.ObjectId, ref : "Note"}]
 
+  },
+  {
+    timestamps: true,
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+        delete ret.__v;
+        return ret;
+      },
+    },
   }
 )
 

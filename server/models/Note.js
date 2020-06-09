@@ -7,6 +7,17 @@ const noteSchema = new Schema(
     //user:[{ type : Schema.ObjectId, ref : "User"}],
     text: String,
 
+  },
+  {
+    timestamps: true,
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+        delete ret.__v;
+        return ret;
+      },
+    },
   }
 )
 
