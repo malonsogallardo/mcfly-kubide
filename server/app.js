@@ -8,11 +8,13 @@ const hbs          = require('hbs');
 const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
-const DBURL = process.env.DBURL;
+const session = require("express-session")
+const MongoStore = require("connect-mongo")(session);
+//const DBURL = process.env.DBURL;
 
 
 mongoose
-  .connect(DBURL, {
+  .connect('mongodb://localhost/server', {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
@@ -49,6 +51,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 
+app.use(
+  session({
+      secret: "keyboard cat",
+      resave: true,
+      saveUninitialized: true,
+      store: new MongoStore({ mongooseConnection: mongoose.connection })
+  })
+);
+
+
+require("./passport")(app);
 
 // default value for title local
 app.locals.title = 'Kubide - McFly';
@@ -66,5 +79,8 @@ app.use('/', favourites);
 
 const notes = require('./routes/notesRouter');
 app.use('/', notes);
+
+const auth = require('./routes/userRouter');
+app.use('/', auth);
 
 module.exports = app;

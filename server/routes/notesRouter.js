@@ -89,6 +89,7 @@ notesRouter.put("/favourites/delete/:id", async (req, res) => {
 })
 
 notesRouter.get("/notes", async (req, res) => {
+  console.log(req.user)
 try {
   const notas = await Note.find();
   return res.json(notas)
