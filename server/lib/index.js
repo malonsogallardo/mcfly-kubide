@@ -1,7 +1,7 @@
 require("dotenv").config();
 const DBURL = process.env.DBURL;
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+
 
 
 // -------------------------
@@ -45,25 +45,25 @@ const dropIfExists = async Model => {
 // -------------------------
 // LoggedIn or not
 // -------------------------
-const isLoggedIn = (redirectRoute = "http://localhost:3000/notes") => (req, res, next) => {
-    if (req.user) {
-        return next();
-    } else {
-        return res.status(401).json({ status: 'Content is private, please login' })
-    }
-};
+// const isLoggedIn = (redirectRoute = "http://localhost:3000/notes") => (req, res, next) => {
+//     if (req.user) {
+//         return next();
+//     } else {
+//         return res.status(401).json({ status: 'Content is private, please login' })
+//     }
+// };
 
-const isLoggedOut = (redirectRoute = "http://localhost:3000/") => (req, res, next) => {
-    if (!req.user) {
-        return next();
-    } else {
-        return res.status(401).json({ status: 'You are already logged in' })
-    }
-};
+// const isLoggedOut = (redirectRoute = "http://localhost:3000/") => (req, res, next) => {
+//     if (!req.user) {
+//         return next();
+//     } else {
+//         return res.status(401).json({ status: 'You are already logged in' })
+//     }
+// };
 
 module.exports ={
     withDbConnection, 
     dropIfExists,
-    isLoggedIn,
-    isLoggedOut
+  //  isLoggedIn,
+  //  isLoggedOut
 }
