@@ -4,6 +4,7 @@
 
 - npm install
 - npm run seeds
+- npm run start
 
 ## Credenciales de testeo
 
