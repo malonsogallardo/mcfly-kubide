@@ -1,7 +1,8 @@
 const express = require("express")
 const userRouter = express.Router()
+const passport = require("passport")
 
-passportRouter.post(
+userRouter.post(
   "/login",
   passport.authenticate("local", {
     successRedirect: "/notes",
@@ -9,10 +10,9 @@ passportRouter.post(
   })
 );
 
-passportRouter.post("/logout", ensureLogin.ensureLoggedIn(), (req, res) => {
+userRouter.post("/logout" ,(req, res) => {
   req.logout();
   res.redirect("/");
 });
-
 
 module.exports = userRouter

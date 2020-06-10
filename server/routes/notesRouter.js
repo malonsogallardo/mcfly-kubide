@@ -4,18 +4,13 @@ const notesRouter = express.Router()
 const Note = require("../models/Note")
 const User = require("../models/User")
 
-notesRouter.get("/create", (req, res) => {
-
-  res.render('createNote');
-})
-
 notesRouter.post("/create", async (req, res) => {
 try{
     const text = req.headers.text;
     //const id = req.params.id;
-    //const userId = req.user.id;
+    const userId = req.user.id;
 
-    const userId = req.headers.user;
+    //const userId = req.headers.user;
     console.log(text)
     const newNote = await Note.create({
       text:text
@@ -36,7 +31,7 @@ try{
 })
 
 notesRouter.get("/favourites", async(req, res) => {
-  const userId = req.headers.user;
+  const userId = req.user.id;
 
 try {
 const userFav = await User.findById(userId).populate({path:"fav"})
@@ -48,15 +43,11 @@ return res.json("favourites not found")
 
 })
 
-notesRouter.post("/favourites", (req, res) => {
-
-})
-
 notesRouter.put("/favourites/:id", async (req, res) => {
 try{
   const id = req.params.id;
-  //const userId = req.user.id;
-  const userId = req.headers.user;
+  
+  const userId = req.user.id;
   const userFav = await User.findByIdAndUpdate(
     {_id : userId},
     { $addToSet : {fav : id}},
@@ -74,8 +65,8 @@ try{
 notesRouter.put("/favourites/delete/:id", async (req, res) => {
   try{
     const id = req.params.id;
-    //const userId = req.user.id;
-    const userId = req.headers.user;
+    const userId = req.user.id;
+    
     const userFav = await User.findByIdAndUpdate(
       {_id : userId},
       { $pull : {fav : id}},
@@ -89,6 +80,7 @@ notesRouter.put("/favourites/delete/:id", async (req, res) => {
 })
 
 notesRouter.get("/notes", async (req, res) => {
+
 try {
   const notas = await Note.find();
   return res.json(notas)
